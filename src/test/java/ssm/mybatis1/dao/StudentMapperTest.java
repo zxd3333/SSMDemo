@@ -5,7 +5,9 @@ import org.junit.Test;
 import ssm.mybatis1.pojo.Student;
 import ssm.mybatis1.utils.MyBatisUtil;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 //测试类
 public class StudentMapperTest {
@@ -68,5 +70,31 @@ public class StudentMapperTest {
         //对数据库有更新时必须提交事务
         sqlSession.commit();
         sqlSession.close();
+    }
+
+    @Test
+    //使用Map，查找年龄为指定数字的学生
+    public void test5(){
+        SqlSession sqlSession = MyBatisUtil.getSqlSession();
+        StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
+        Map<String,Object> map = new HashMap<String, Object>();
+        map.put("studentAge",10);
+        List<Student> studentList = mapper.findByAge(map);
+        for (Student s : studentList){
+            System.out.println(s);
+        }
+        sqlSession.close();
+    }
+
+    @Test
+    //模糊查询，查找名字中带有“一”的学生
+    //在映射器中编写查询语句
+    public void findStudent(){
+        SqlSession sqlSession = MyBatisUtil.getSqlSession();
+        StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
+        List<Student> studentList = mapper.findStudent("一");
+        for (Student s : studentList){
+            System.out.println(s);
+        }
     }
 }

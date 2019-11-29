@@ -24,4 +24,13 @@
     <delete id="deleteStudentById" parameterType="int">
         delete from student where sid = #{sid}
     </delete>
+
+    <!--Map传递参数，传递的是map的key-->
+    <select id="findByAge" parameterType="map" resultType="ssm.mybatis1.pojo.Student">
+        select * from student where age = #{studentAge}
+    </select>
+
+    <select id="findStudent" parameterType="String" resultType="ssm.mybatis1.pojo.Student">
+        select * from student where name like "%"#{name}"%"
+    </select>
 </mapper>

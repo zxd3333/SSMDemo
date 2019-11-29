@@ -3,6 +3,7 @@ package ssm.mybatis1.dao;
 import ssm.mybatis1.pojo.Student;
 
 import java.util.List;
+import java.util.Map;
 
 public interface StudentMapper {
     //获取所有学生
@@ -15,4 +16,10 @@ public interface StudentMapper {
     void updateStudent(Student student);
     //删除一个学生
     void deleteStudentById(int sid);
+
+    //Map的初步使用
+    List<Student> findByAge(Map<String,Object> map);
+
+    //模糊查询的初步使用
+    List<Student> findStudent(String name);
 }
