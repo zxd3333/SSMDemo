@@ -19,6 +19,6 @@
     </environments>
     <!--每一个xxxMapper.xml都需要在mybatis-config.xml中进行注册-->
     <mappers>
-        <mapper resource="ssm/mybatis1/dao/StudentMapper.xml"/>
+        <mapper resource="ssm/mybatis/dao/StudentMapper.xml"/>
     </mappers>
 </configuration>

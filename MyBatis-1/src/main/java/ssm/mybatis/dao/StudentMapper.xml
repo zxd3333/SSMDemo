@@ -3,21 +3,21 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--namespace会绑定一个对应的Mapper接口-->
-<mapper namespace="ssm.mybatis1.dao.StudentMapper">
+<mapper namespace="ssm.mybatis.dao.StudentMapper">
 
-   <select id="getAll" resultType="ssm.mybatis1.pojo.Student">
+    <select id="getAll" resultType="ssm.mybatis.pojo.Student">
        select * from student;
    </select>
 
-    <select id="selectById" parameterType="int" resultType="ssm.mybatis1.pojo.Student">
+    <select id="selectById" parameterType="int" resultType="ssm.mybatis.pojo.Student">
         select * from student where sid = #{sid}
     </select>
 
-    <insert id="addStudent" parameterType="ssm.mybatis1.pojo.Student">
+    <insert id="addStudent" parameterType="ssm.mybatis.pojo.Student">
         insert into student(sid, name, age) values (#{sid},#{name},#{age})
     </insert>
 
-    <update id="updateStudent" parameterType="ssm.mybatis1.pojo.Student">
+    <update id="updateStudent" parameterType="ssm.mybatis.pojo.Student">
         update student set name = #{name},age = #{age} where sid = #{sid}
     </update>
 
@@ -26,11 +26,11 @@
     </delete>
 
     <!--Map传递参数，传递的是map的key-->
-    <select id="findByAge" parameterType="map" resultType="ssm.mybatis1.pojo.Student">
+    <select id="findByAge" parameterType="map" resultType="ssm.mybatis.pojo.Student">
         select * from student where age = #{studentAge}
     </select>
 
-    <select id="findStudent" parameterType="String" resultType="ssm.mybatis1.pojo.Student">
+    <select id="findStudent" parameterType="String" resultType="ssm.mybatis.pojo.Student">
         select * from student where name like "%"#{name}"%"
     </select>
 </mapper>

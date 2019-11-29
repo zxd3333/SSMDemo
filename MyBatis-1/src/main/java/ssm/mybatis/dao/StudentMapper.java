@@ -1,6 +1,6 @@
-package ssm.mybatis1.dao;
+package ssm.mybatis.dao;
 
-import ssm.mybatis1.pojo.Student;
+import ssm.mybatis.pojo.Student;
 
 import java.util.List;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package ssm.mybatis1.utils;
+package ssm.mybatis.utils;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -17,7 +17,7 @@ public class MyBatisUtil {
 
     private static SqlSessionFactory sqlSessionFactory;
     //获取SqlSessionFactory对象
-    static{
+    static {
         try {
             String resource = "mybatis-config.xml";
             InputStream inputStream = Resources.getResourceAsStream(resource);
@@ -29,9 +29,10 @@ public class MyBatisUtil {
     //从SqlSessionFactory中获取SqlSession
     //SqlSession完全包含了面向数据库执行SQL命令的所有方法
     public static SqlSession getSqlSession(){
-          //获取SqlSession实例，并返回一个SqlSession对象
+        //获取SqlSession实例，并返回一个SqlSession对象
 //        SqlSession sqlSession = sqlSessionFactory.openSession();
 //        return sqlSession;
         return sqlSessionFactory.openSession();
     }
 }
+

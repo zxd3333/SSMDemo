@@ -1,9 +1,9 @@
-package ssm.mybatis1.dao;
+package ssm.mybatis.dao;
 
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
-import ssm.mybatis1.pojo.Student;
-import ssm.mybatis1.utils.MyBatisUtil;
+import ssm.mybatis.pojo.Student;
+import ssm.mybatis.utils.MyBatisUtil;
 
 import java.util.HashMap;
 import java.util.List;

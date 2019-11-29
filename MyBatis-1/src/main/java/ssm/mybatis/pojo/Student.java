@@ -1,4 +1,4 @@
-package ssm.mybatis1.pojo;
+package ssm.mybatis.pojo;
 
 //学生实体类
 public class Student {
