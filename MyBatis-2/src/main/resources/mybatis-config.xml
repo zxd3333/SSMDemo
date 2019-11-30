@@ -10,6 +10,21 @@
         <property name="username" value="root"/>
         <property name="password" value="123456"/>
     </properties>
+
+    <settings>
+        <!--添加日志-->
+        <!--标准日志工厂：STDOUT_LOGGING-->
+        <!--<setting name="logImpl" value="STDOUT_LOGGING"/>-->
+        <!--log4j的使用：
+            1.先在pom.xml导包
+            2.添加log4j.properties配置文件
+            3.在mybatis-config.xml中设置<setting>标签
+            4.在要输出日志的类中导入import org.apache.log4j.Logger;
+            5.在类中获取日志对象：private static Logger logger = Logger.getLogger(类名.class);
+            6.在类中的方法中调用logger的方法
+        -->
+        <setting name="logImpl" value="LOG4J"/>
+    </settings>
     
     <typeAliases>
         <!--给一个实体类起别名-->

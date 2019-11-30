@@ -1,6 +1,7 @@
 package ssm.mybatis.dao;
 
 import org.apache.ibatis.session.SqlSession;
+import org.apache.log4j.Logger;
 import org.junit.Test;
 import ssm.mybatis.pojo.Student;
 import ssm.mybatis.utils.MyBatisUtil;
@@ -11,6 +12,8 @@ import java.util.Map;
 
 //测试类
 public class StudentMapperTest {
+
+    private static Logger logger = Logger.getLogger(StudentMapperTest.class);
 
     @Test
     //获取所有学生
@@ -28,6 +31,7 @@ public class StudentMapperTest {
     @Test
     //根据学号获取学生
     public void test1(){
+        logger.info("进入方法：根据学号获取学生信息");
         SqlSession sqlSession = MyBatisUtil.getSqlSession();
         StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
         Student student = mapper.selectById(1);
