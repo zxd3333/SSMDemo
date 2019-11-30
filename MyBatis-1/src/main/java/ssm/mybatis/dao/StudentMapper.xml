@@ -9,7 +9,7 @@
        select * from student;
    </select>
 
-    <select id="selectById" parameterType="int" resultType="ssm.mybatis.pojo.Student">
+    <select id="selectById" parameterType="int" resultType="Student">
         select * from student where sid = #{sid}
     </select>
 

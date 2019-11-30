@@ -5,11 +5,30 @@
 <!--namespace会绑定一个对应的Mapper接口-->
 <mapper namespace="ssm.mybatis.dao.StudentMapper">
 
+    <!--结果集映射，解决实体类中的属性与数据库中的列名不一致的情况-->
+    <!--id：与下面定义的相互匹配   type：与数据库表匹配的实体类的名字-->
+    <resultMap id="StudentMap" type="Student">
+        <!--property是实体类中定义的属性
+            column是数据库中的列名-->
+        <result property="sid" column="sid"/>
+        <result property="name" column="name"/>
+        <result property="age" column="age"/>
+    </resultMap>
+
     <select id="getAll" resultType="ssm.mybatis.pojo.Student">
        select * from student;
    </select>
 
+    <!--
     <select id="selectById" parameterType="int" resultType="ssm.mybatis.pojo.Student">
+        select * from student where sid = #{sid}
+    </select>
+    -->
+    
+    <!--
+    修改上面注释的代码，将resultType修改为resultMap，以此了解resultMap的用法
+    -->
+    <select id="selectById" parameterType="int" resultMap="StudentMap">
         select * from student where sid = #{sid}
     </select>
 
