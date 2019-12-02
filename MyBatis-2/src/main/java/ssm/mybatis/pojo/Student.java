@@ -1,51 +1,20 @@
 package ssm.mybatis.pojo;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 //学生类
+//用于偷懒的lombok的使用，首先在设置中安装插件，其次在pom.xml中导入依赖，最后在代码中编写注解使用
+//1.@Data：在实体类中自动生成  Getter()/Setter()  无参构造  toString()  hashCode()  equals()
+//2.@AllArgsConstructor：生成带全部参数的构造方法
+//3.@NoArgsConstructor：生成无参构造方法
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Student {
 
     private int sid;
     private String name;
     private int age;
-
-    public Student() {
-    }
-
-    public Student(int sid, String name, int age) {
-        this.sid = sid;
-        this.name = name;
-        this.age = age;
-    }
-
-    public int getSid() {
-        return sid;
-    }
-
-    public void setSid(int sid) {
-        this.sid = sid;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    @Override
-    public String toString() {
-        return "Student{" +
-                "sid=" + sid +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                '}';
-    }
 }
