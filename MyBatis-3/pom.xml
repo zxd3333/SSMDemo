@@ -2,17 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>SSMDemo</artifactId>
+        <groupId>com.zxd.ssm</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.zxd.ssm</groupId>
-    <artifactId>SSMDemo</artifactId>
-    <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>MyBatis-1</module>
-        <module>MyBatis-2</module>
-        <module>MyBatis-3</module>
-    </modules>
+    <artifactId>MyBatis-3</artifactId>
 
     <dependencies>
 
@@ -35,6 +32,19 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
+        <!--log4j日志-->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+        <!--lombok-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.8</version>
+        </dependency>
+
     </dependencies>
     <build>
         <resources>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace会绑定一个对应的Mapper接口-->
+<mapper namespace="ssm.mybatis.dao.StudentMapper">
+    <!--多表查询：查询学生所有信息，包括对应的老师-->
+
+    <!--方法一：通过结果嵌套处理
+            1.编写查询的sql语句
+            2.在结果集中对应他们的关系-->
+    <!--编写sql语句：查询的结果对应的字段分别是 id , sname , age , tname-->
+    <!--由于结果不完全是与数据库表匹配的实体类，所以使用到结果集映射-->
+    <select id="findAllInfo" resultMap="StudentAllInfo">
+        select s.sid id,s.name sname,s.age age,t.name tname
+        from student s,teacher t
+        where s.tid=t.id
+    </select>
+
+    <resultMap id="StudentAllInfo" type="Student">
+        <!--property：学生类定义的属性
+            column：数据库的结果字段-->
+        <result property="id" column="id"/>
+        <result property="name" column="sname"/>
+        <result property="age" column="age"/>
+        <!--对于一个Teacher对象而言，使用关联(association)语句-->
+        <!--property：Student类中定义的对象的属性
+            javaType：属性对应的类型
+            在标签内是Teacher类的属性：
+                       property：Teacher类中定义的属性
+                       column：sql查询结果中的字段-->
+        <association property="teacher" javaType="Teacher">
+            <!--由于查询结果并没有teacher表中的id，所以这里的id无法定义
+                不过可以在sql语句中添加老师的id，但是没有必要对吧，所以这个语句不用写上
+                <result property="id" column="id"/>
+            -->
+            <result property="name" column="tname"/>
+        </association>
+    </resultMap>
+
+    <!--==================上面是第一种方法，下面是第二种===================-->
+
+    <!--方法二：嵌套Select查询
+        一步一步来，1.查找学生所有信息
+                   2.根据tid查找老师所有信息-->
+    <select id="findAllStudentInfo" resultMap="StudentTea">
+        select * from student
+    </select>
+
+    <resultMap id="StudentTea" type="Student">
+        <result property="id" column="sid"/>
+        <result property="name" column="name"/>
+        <result property="age" column="age"/>
+        <!--由于Teacher是一个对象，所以不能使用result，对象应该使用association标签
+            property：Student类中定义的对象的属性
+            column：数据库字段里的tid，
+            javaType：对象对应的类型
+            select：嵌套的另一个查询语句的id-->
+        <association property="teacher" column="tid" javaType="Teacher" select="getTeacherName"/>
+    </resultMap>
+
+    <select id="getTeacherName" resultType="Teacher">
+        select * from teacher where id = #{id};
+    </select>
+
+</mapper>
