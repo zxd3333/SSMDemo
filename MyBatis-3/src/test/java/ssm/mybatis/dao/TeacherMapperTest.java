@@ -17,7 +17,7 @@ public class TeacherMapperTest {
     public void test(){
         SqlSession sqlSession = MyBatisUtil.getSqlSession();
         TeacherMapper mapper = sqlSession.getMapper(TeacherMapper.class);
-        List<Teacher> all = mapper.findAll();
+        List<Teacher> all = mapper.findAllInfoById(1);
         for (Teacher teacher : all) {
             System.out.println(teacher);
         }
