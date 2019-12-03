@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ssm.mybatis.dao.BookMapper">
+
+    <insert id="addBook" parameterType="Book">
+        insert into book(id, name, create_time, author, price)
+        values (#{id},#{name},#{createTime},#{author},#{price})
+    </insert>
+
+    <!--动态sql语句-->
+    <!--首先在mysql中测试sql语句，再在代码中修改为动态sql-->
+    <!--if语句：如果不传入参数，查询所有，如果传入了参数，就对sql语句进行拼接-->
+    <select id="findBook" parameterType="map" resultType="Book">
+        select * from book
+        <!--只有传入参数的时候where语句才会执行，如果只有一个参数，它会将and或者or抹去-->
+        <where>
+            <if test="name != null">
+                name = #{name}
+            </if>
+            <if test="author != null">
+                and author = #{author}
+            </if>
+        </where>
+    </select>
+
+    <!--choose：可以看做switch语句-->
+    <!--只会执行一条语句：如果满足一个when，则其他的when不会执行，如果都不满足，执行otherwise语句-->
+    <select id="chooseBook" parameterType="map" resultType="Book">
+        select * from book
+        <where>
+            <choose>
+                <when test="name != null">
+                    name = #{name}
+                </when>
+                <when test="price != null">
+                    price = #{price}
+                </when>
+                <otherwise>
+                    author = #{author}
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+    <update id="updateBook" parameterType="map">
+        update book
+        <set>
+        <!--注意加上逗号，如果只匹配了这一条语句，逗号会被自动删了-->
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="author != null">
+                author = #{author}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="foreachBook" parameterType="map" resultType="Book">
+        select * from book
+        <where>
+        <!--
+        正常编写sql语句是这样：
+            where (name = #{name1} or name = #{name2} or name = #{name3})
+        运用foreach之后的语句解读
+            collection：map中传入的集合的key，这里就是 names
+            open：以什么符号开头，这里就是 (
+            separator：以什么符号分割，这里就是 or
+            close：以什么符号结尾，这里就是 )
+            item：names集合中传入的数据
+        -->
+            <foreach collection="names" open="(" separator="or" close=")" item="hah">
+                name = #{hah}
+            </foreach>
+        </where>
+    </select>
+
+    <!--sql片段：可以把重复性的代码写在一个片段中，然后再别处通过下面的语句引用即可
+                <include refid="sql-name-author"/>
+           注意：为避免出错，sql片段中最好基于单表，不要存在<where标签>，最好在<where>标签中引用-->
+    <sql id="sql-name-author">
+        <if test="name != null">
+            name = #{name}
+        </if>
+        <if test="author != null">
+            and author = #{author}
+        </if>
+    </sql>
+</mapper>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--核心配置-->
+<configuration>
+    <!--可以直接引用外部配置文件，里面的可以不写-->
+    <properties resource="jdbc.properties"/>
+
+    <settings>
+        <setting name="logImpl" value="LOG4J"/>
+        <!--可以把数据库带下划线的列，映射为实体类中的驼峰式命名-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+    
+    <typeAliases>
+        <package name="ssm.mybatis.pojo"/>
+    </typeAliases>
+    <!--环境，default设置默认环境，这里默认选择id为development的环境-->
+    <environments default="development">
+        <environment id="development">
+            <!--事务管理-->
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!--每一个xxxMapper.xml都需要在mybatis-config.xml中进行注册-->
+    <mappers>
+        <mapper resource="ssm/mybatis/dao/BookMapper.xml"/>
+    </mappers>
+</configuration>
