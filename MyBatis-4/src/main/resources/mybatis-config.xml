@@ -11,6 +11,16 @@
         <setting name="logImpl" value="LOG4J"/>
         <!--可以把数据库带下划线的列，映射为实体类中的驼峰式命名-->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!--显示地开启全局缓存，虽然这玩意默认开启
+        步骤1.在配置文件中开启
+        步骤2.在要使用二级缓存的Mapper.xml中开启，虽然会有参数，但是直接写<cache/>亦可
+        步骤3.将实体类序列化，implements Serializable
+        注意：在同一个Mapper下有效，数据优先放入一级缓存
+              sqlSession提交或关闭的时候才会启用二级缓存
+              数据角度看：数据从数据库中拿出后，会保存在一级缓存，一级缓存关闭后会保存在二级缓存中
+              用户角度看：用户进来后先看二级缓存有没有数据，再看一级缓存，最后访问数据库。
+        -->
+        <setting name="cacheEnabled" value="true"/>
     </settings>
     
     <typeAliases>

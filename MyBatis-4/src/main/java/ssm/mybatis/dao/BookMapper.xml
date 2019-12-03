@@ -4,6 +4,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ssm.mybatis.dao.BookMapper">
 
+    <!--开启二级缓存-->
+    <cache eviction="FIFO"
+           flushInterval="60000"
+           size="512"
+           readOnly="true"/>
+
     <insert id="addBook" parameterType="Book">
         insert into book(id, name, create_time, author, price)
         values (#{id},#{name},#{createTime},#{author},#{price})
