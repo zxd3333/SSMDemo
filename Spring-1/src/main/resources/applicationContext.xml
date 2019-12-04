@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--
+    之前创建对象的方法：Student s = new Student();
+    Spring创建对象在<bean>标签中
+    <bean id="stu" class="ssm.spring.pojo.Student">的意思是给class中指定的对象(Student类)new一个名字为id中指定的名字(stu)的变量
+    我们使用的时候直接使用id指定的值(stu)即可
+    -->
+    <!--<bean>标签默认使用的是无参构造方法创建对象-->
+    <!--下面这行代码相当于：Student stu = new Student();-->
+    <bean id="student" class="ssm.spring.pojo.Student">
+        <!--ref：引用Spring容器中创建好的对象
+          value：一个具体的值 -->
+        <!--下面这行代码相当于：stu.setName("你好");-->
+        <property name="name" value="你好"/>
+
+        <!--通过构造器创建带参的对象-->
+        <!--<constructor-arg index="0" value="通过下标注册对象"/>-->
+        <!--<constructor-arg type="java.lang.String" value="不建议使用，通过类型注册对象"/>-->
+        <!--<constructor-arg name="name" value="通过参数名注册对象"/>-->
+    </bean>
+
+    <!--不同类型的Set注入-->
+    <bean id="teacher" class="ssm.spring.pojo.Teacher">
+        <!--普通注入-->
+        <property name="name" value="赵老师"/>
+        <!--引用注入-->
+        <property name="address" ref="address"/>
+        <!--数组注入-->
+        <property name="books">
+            <array>
+                <value>火之晨曦</value>
+                <value>悼亡者之瞳</value>
+                <value>黑月之潮</value>
+            </array>
+        </property>
+        <!--List注入-->
+        <property name="hobbys">
+            <list>
+                <value>看书</value>
+                <value>游戏</value>
+            </list>
+        </property>
+        <!--Map注入-->
+        <property name="card">
+            <map>
+                <entry key="身份证" value="2783680932"/>
+                <entry key="教师证" value="001"/>
+            </map>
+        </property>
+        <!--Set注入-->
+        <property name="games">
+            <set>
+                <value>LOL</value>
+                <value>COC</value>
+            </set>
+        </property>
+        <!--null注入-->
+        <property name="girlFriend">
+            <null/>
+        </property>
+        <!--配置文件注入-->
+        <property name="prop">
+            <props>
+                <prop key="年龄">30</prop>
+                <prop key="生日">七月初二</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="address" class="ssm.spring.pojo.Address">
+        <property name="name" value="山西"/>
+    </bean>
+
+    <!--其他方式的注入-->
+    <!--p标签：作用相当于<bean>标签中的<property>
+        c标签：作用相当于<bean>标签中的<constructor-arg>，实体类中必须有带参构造方法-->
+    <bean id="stu" class="ssm.spring.pojo.Student" p:name="zz"/>
+    <bean id="s" class="ssm.spring.pojo.Student" c:_0="zxd"/>
+</beans>
