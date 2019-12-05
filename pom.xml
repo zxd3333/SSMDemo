@@ -15,6 +15,7 @@
         <module>MyBatis-4</module>
         <module>Spring-1</module>
         <module>Spring-2</module>
+        <module>Spring-3</module>
     </modules>
 
 </project>
