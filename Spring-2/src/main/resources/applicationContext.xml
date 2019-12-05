@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--4.使用注解完成自动装配
+        步骤：1.在头文件导入context约束
+             2.配置注解的支持，即下面这段代码
+             3.在xml文件中注册bean
+             4.在代码对应的属性上加上对应的注解即可-->
+    <!--开启注解支持-->
+    <context:annotation-config/>
+
+    <bean id="cat" class="ssm.spring.pojo.Cat"/>
+    <bean id="dog" class="ssm.spring.pojo.Dog"/>
+    <bean id="people" class="ssm.spring.pojo.People">
+        <property name="name" value="赵匡胤"/>
+    </bean>
+
+
+<!--    &lt;!&ndash;2.了解自动装配&ndash;&gt;-->
+<!--    <bean id="cat" class="ssm.spring.pojo.Cat"/>-->
+<!--    <bean id="dog" class="ssm.spring.pojo.Dog"/>-->
+
+<!--    &lt;!&ndash;3.使用自动装配-->
+<!--        对比：使用自动装配后，引用的属性就不需要在<bean>中的<property>中配置了，只需要在<bean>标签里面配置-->
+<!--        前提：bean都已经在容器中完成注册-->
+<!--        方法：<bean>标签中的 autowire 属性的 byName 和 byType-->
+<!--        byName：会在容器上下文中寻找，找什么呢？-->
+<!--                找和People对象的setXxx()方法后面的那个xxx(首字母小写)对应的bean的id-->
+<!--                简单来说就是根据外部的<bean>标签中的id属性来自动装配，该id必须是setXxx中的xxx-->
+<!--        byType：会在容器上下文中寻找，找什么呢？-->
+<!--                找和People对象中定义的属性相同的<bean>标签-->
+<!--                简单来说就是根据外部的<bean>标签中的class属性来自动装配，class属性只能有一个-->
+<!--                如果有多个<bean>，其class属性一样则使用byType会报错&ndash;&gt;-->
+<!--    <bean id="people" class="ssm.spring.pojo.People" autowire="byType">-->
+<!--        <property name="name" value="赵"/>-->
+<!--        &lt;!&ndash;1.普通方式装配&ndash;&gt;-->
+<!--        &lt;!&ndash;<property name="cat" ref="cat"/>&ndash;&gt;-->
+<!--        &lt;!&ndash;<property name="dog" ref="dog"/>&ndash;&gt;-->
+<!--    </bean>-->
+</beans>
