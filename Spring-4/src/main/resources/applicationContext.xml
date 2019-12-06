@@ -17,9 +17,23 @@
     <context:annotation-config/>
 
     <!--配置AOP-->
-    <aop:config>
-        <aop:pointcut id="puintcut" expression="execution(* ssm.spring.service.StudentServiceImpl.* (..))"/>
-        <aop:advisor advice-ref="beforeLog" pointcut-ref="puintcut"/>
-        <aop:advisor advice-ref="afterLog" pointcut-ref="puintcut"/>
-    </aop:config>
+    <!--方法一：使用SpringAPI-->
+<!--    <aop:config>-->
+<!--        <aop:pointcut id="puintcut" expression="execution(* ssm.spring.service.StudentServiceImpl.* (..))"/>-->
+<!--        <aop:advisor advice-ref="beforeLog" pointcut-ref="puintcut"/>-->
+<!--        <aop:advisor advice-ref="afterLog" pointcut-ref="puintcut"/>-->
+<!--    </aop:config>-->
+
+    <!--方法二：自定义切面-->
+<!--    <aop:config>-->
+<!--        <aop:aspect ref="diyPointCut">-->
+<!--            <aop:pointcut id="point" expression="execution(* ssm.spring.service.StudentServiceImpl.*(..))"/>-->
+<!--            <aop:before method="before" pointcut-ref="point"/>-->
+<!--            <aop:after method="after" pointcut-ref="point"/>-->
+<!--        </aop:aspect>-->
+<!--    </aop:config>-->
+
+    <!--方式三：注解-->
+    <!--开启注解支持-->
+    <aop:aspectj-autoproxy/>
 </beans>
