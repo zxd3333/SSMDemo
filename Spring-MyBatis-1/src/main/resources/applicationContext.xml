@@ -29,9 +29,17 @@
         <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
     </bean>
 
-    <!--注入StudentMapperImpl-->
+    <!--方式一：通过set方法注入sqlSession-->
     <bean id="studentMapper" class="ssm.mapper.StudentMapperImpl">
         <property name="sqlSessionTemplate" ref="sqlSession"/>
+    </bean>
+
+    <!--方式二：没有set方法，不用注入sqlSession
+        但是这里需要注入sqlSessionFactory，因为(StudentMapperImpl2)这个类继承了(SqlSessionDaoSupport)
+        而SqlSessionDaoSupport的创建需要一个sqlSessionFactory
+        使用方式二就只需要配置数据源和sqlSessionFactory-->
+    <bean id="u2" class="ssm.mapper.StudentMapperImpl2">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
     </bean>
 
 </beans>
