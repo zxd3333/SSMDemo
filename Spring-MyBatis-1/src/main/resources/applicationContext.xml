@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/school?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false&amp;serverTimezone=UTC"/>
+        <property name="username" value="root"/>
+        <property name="password" value="root"/>
+    </bean>
+
+    <!--在MyBatis中是通过SqlSessionFactoryBuilder来创建SqlSessionFactory的，
+        而在MyBatis-Spring中则使用SqlSessionFactoryBean来创建-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!--可以在此处绑定MyBatis相关配置，也可以直接引入配置好的-->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <property name="mapperLocations" value="classpath:ssm/mapper/StudentMapper.xml"/>
+    </bean>
+
+    <!--在MyBatis中使用SqlSessionFactory来创建SqlSession
+        一旦获得一个session后，就可以使用它来执行映射了的语句，提交或回滚连接，最后，当不再需要它的时候，可以关闭 sqlSession
+         MyBatis-Spring中使用SqlSessionTemplate作为SqlSession的一个实现，意思是可以使用它代替SqlSession-->
+    <!--SqlSessionTemplate:就好比我们使用的SqlSession-->
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <!--通过构造器注入-->
+        <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+
+    <!--注入StudentMapperImpl-->
+    <bean id="studentMapper" class="ssm.mapper.StudentMapperImpl">
+        <property name="sqlSessionTemplate" ref="sqlSession"/>
+    </bean>
+
+</beans>
