@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace会绑定一个对应的Mapper接口-->
+<mapper namespace="ssm.mapper.StudentMapper">
+    <select id="findAll" resultType="Student" >
+        select * from student;
+    </select>
+
+    <insert id="add" parameterType="Student">
+        insert into student(sid, name, age, tid)
+        values (sid=#{sid},name=#{name},age=#{age},tid=#{tid});
+    </insert>
+
+    <!--故意写错sql语句，验证事务-->
+    <delete id="del" parameterType="int">
+        delete from student
+        where sid = #{id};
+    </delete>
+</mapper>
