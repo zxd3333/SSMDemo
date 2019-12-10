@@ -20,6 +20,7 @@
         <module>Spring-MyBatis-1</module>
         <module>Spring-MyBatis-2</module>
         <module>SpringMVC-1</module>
+        <module>SpingMVC-2</module>
     </modules>
 
 </project>
